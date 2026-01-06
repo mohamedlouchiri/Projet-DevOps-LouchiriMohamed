@@ -49,8 +49,14 @@ Ce projet est une application simple développée dans le cadre d'un projet DevO
 ### Localement
 
 ```bash
+# Compiler le projet
 mvn clean compile
+
+# Exécuter l'application
 mvn exec:java -Dexec.mainClass="com.devops.App"
+
+# Exécuter les tests
+mvn test
 ```
 
 ### Avec Docker
