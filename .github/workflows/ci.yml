@@ -16,12 +16,26 @@ jobs:
       with:
         fetch-depth: 0
       
+    - name: Debug - List files
+      run: |
+        echo "=== Structure du projet ==="
+        ls -la
+        echo "=== Contenu de pom.xml (lignes 10-15) ==="
+        sed -n '10,15p' pom.xml || cat pom.xml | Select-String -Pattern "name" -Context 2,2
+      
     - name: Set up JDK 11
       uses: actions/setup-java@v3
       with:
         java-version: '11'
         distribution: 'temurin'
         cache: maven
+        
+    - name: Validate pom.xml
+      run: |
+        echo "=== Validation du pom.xml ==="
+        mvn validate || echo "Erreur de validation"
+        echo "=== Vérification de la ligne 13 ==="
+        sed -n '13p' pom.xml
         
     - name: Build and test with Maven
       run: mvn clean test package
